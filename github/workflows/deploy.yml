@@ -26,7 +26,6 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # ⬇️ Disable Jekyll
       - name: Disable Jekyll
         run: echo > dist/.nojekyll
 
