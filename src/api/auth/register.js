@@ -1,4 +1,4 @@
-import { URL } from "../../constants/api.js";
+import { URL } from "../../constants copy/api";
 
 export async function register(user) {
   const url = `${URL}auth/register`;
