@@ -1,6 +1,7 @@
 import { it, describe, expect, test } from "vitest";
 import { validateEmail } from "./validation";
 import { validatePassword } from "./validation";
+import { validateForm } from "./validation";
 
 describe(validateEmail, () => {
   it("returns true for valid student email", () => {
@@ -35,6 +36,43 @@ describe("validatePassword", () => {
     it(`returns ${expected} for password ${password}`, () => {
       const result = validatePassword(password);
       expect(result).toBe(expected);
+    });
+  });
+});
+
+describe("validateForm", () => {
+  const testCases = [
+    {
+      email: "valid@stud.noroff.no",
+      password: "validpass",
+      expected: { isValid: true, errors: {} },
+    },
+    {
+      email: "invalid@gmail.com",
+      password: "short",
+      expected: {
+        isValid: false,
+        errors: {
+          email: "Please enter a valid Noroff email address",
+          password: "Password must be at least 8 characters",
+        },
+      },
+    },
+    {
+      email: "valid@noroff.no",
+      password: "short",
+      expected: {
+        isValid: false,
+        errors: {
+          password: "Password must be at least 8 characters",
+        },
+      },
+    },
+  ];
+  testCases.forEach(({ email, password, expected }) => {
+    it(`validates correctly for email "${email}" and password "${password}"`, () => {
+      const result = validateForm(email, password);
+      expect(result).toEqual(expected);
     });
   });
 });
